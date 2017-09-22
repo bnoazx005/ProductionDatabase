@@ -1,0 +1,179 @@
+<Project>
+  <Name>Production</Name>
+  <ProjectItem type="NClass.DiagramEditor.ClassDiagram.Diagram" assembly="NClass.DiagramEditor, Version=2.4.1823.0, Culture=neutral, PublicKeyToken=null">
+    <Name>Production</Name>
+    <Language>Java</Language>
+    <Entities>
+      <Entity type="Class">
+        <Name>CProduct</Name>
+        <Access>Public</Access>
+        <Location left="27" top="140" />
+        <Size width="485" height="383" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private string mCode</Member>
+        <Member type="Field">private string mName</Member>
+        <Member type="Field">private bool mIsStandard</Member>
+        <Member type="Field">private float mAmountPerYear</Member>
+        <Member type="Field">private string mNote</Member>
+        <Member type="Constructor">public CProduct(string code, string name, boolean isStandard, float amountPerYear, string note)</Member>
+        <Member type="Constructor">public CProduct(string code, string name)</Member>
+        <Member type="Method">public void SetCode(string code)</Member>
+        <Member type="Method">public void SetName(string name)</Member>
+        <Member type="Method">public void IsStandard(boolean value)</Member>
+        <Member type="Method">public void SetAmountPerYear(float amountPerYear)</Member>
+        <Member type="Method">public void SetNote(string note)</Member>
+        <Member type="Method">public string GetCode()</Member>
+        <Member type="Method">public string GetName()</Member>
+        <Member type="Method">public boolean IsStandard()</Member>
+        <Member type="Method">public float GetAmountPerYear()</Member>
+        <Member type="Method">public string GetNote()</Member>
+        <Member type="Method">public void newMethod()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CCompany</Name>
+        <Access>Public</Access>
+        <Location left="530" top="140" />
+        <Size width="367" height="315" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private string mCode</Member>
+        <Member type="Field">private string mName</Member>
+        <Member type="Field">private string mPhone</Member>
+        <Member type="Field">private string mAddress</Member>
+        <Member type="Constructor">public CCompany(string code, string name, string phone, string address)</Member>
+        <Member type="Constructor">public CCompany(string code, string name)</Member>
+        <Member type="Method">public void SetCode(string codeValue)</Member>
+        <Member type="Method">public void SetName(string nameValue)</Member>
+        <Member type="Method">public void SetPhone(string phoneValue)</Member>
+        <Member type="Method">public void SetAddress(string addressValue)</Member>
+        <Member type="Method">public string GetCode()</Member>
+        <Member type="Method">public string GetName()</Member>
+        <Member type="Method">public string GetPhone()</Member>
+        <Member type="Method">public string GetAddress()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Class">
+        <Name>CMaterial</Name>
+        <Access>Public</Access>
+        <Location left="916" top="140" />
+        <Size width="432" height="298" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private string mName</Member>
+        <Member type="Field">private string mUnits</Member>
+        <Member type="Field">private float mPricePerUnit</Member>
+        <Member type="Field">private E_MATERIAL_TYPE mType</Member>
+        <Member type="Constructor">public CMaterial(string name, E_MATERIAL_TYPE type, string units, float pricePerUnit)</Member>
+        <Member type="Method">public void SetName(string name)</Member>
+        <Member type="Method">public void SetUnits(string units)</Member>
+        <Member type="Method">public void SetPricePerUnit(float pricePerUnit)</Member>
+        <Member type="Method">public void SetType(E_MATERIAL_TYPE type)</Member>
+        <Member type="Method">public string GetName()</Member>
+        <Member type="Method">public string GetUnits()</Member>
+        <Member type="Method">public float GetPricePerUnit()</Member>
+        <Member type="Method">public E_MATERIAL_TYPE GetType()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+      <Entity type="Enum">
+        <Name>E_MATERIAL_TYPE</Name>
+        <Access>Public</Access>
+        <Location left="1364" top="40" />
+        <Size width="162" height="216" />
+        <Collapsed>False</Collapsed>
+        <Value>MT_MATERIAL1</Value>
+      </Entity>
+      <Entity type="Class">
+        <Name>CSpecification</Name>
+        <Access>Public</Access>
+        <Location left="27" top="583" />
+        <Size width="944" height="468" />
+        <Collapsed>False</Collapsed>
+        <Member type="Field">private CProduct mProduct</Member>
+        <Member type="Field">private CCompany mManufacturer</Member>
+        <Member type="Field">private Map&lt;CMaterial, float&gt; mUsedMaterials</Member>
+        <Member type="Field">private Date mApprovalDate</Member>
+        <Member type="Field">private Date mProductionYear</Member>
+        <Member type="Field">private float mProductionAmount</Member>
+        <Member type="Field">private Date mCancellationDate</Member>
+        <Member type="Constructor">public CSpecification(CProduct product, CCompany manufacturer, Map&lt;CMaterial, float&gt; materials, Date approvalDate, Date productionYear, Date cancellationDate, float productionAmount)</Member>
+        <Member type="Constructor">public CSpecification(CProduct product, CCompany manufacturer, Map&lt;CMaterial, float&gt; materials)</Member>
+        <Member type="Method">public void SetProduct(CProduct product)</Member>
+        <Member type="Method">public void SetManufacturer(CCompany manufacturer)</Member>
+        <Member type="Method">public boolean AddMaterial(CMaterial material, float amount)</Member>
+        <Member type="Method">public boolean RemoveMaterial(CMaterial material)</Member>
+        <Member type="Method">public void SetApprovalDate(Date date)</Member>
+        <Member type="Method">public void SetYearOfProduction(Date date)</Member>
+        <Member type="Method">public void SetCancellationDate(Date date)</Member>
+        <Member type="Method">public void SetProductionAmount(float amount)</Member>
+        <Member type="Method">public CProduct GetProduct()</Member>
+        <Member type="Method">public CCompany GetManufacturer()</Member>
+        <Member type="Method">public Date GetApprovalDate()</Member>
+        <Member type="Method">public Date GetYearOfProduction()</Member>
+        <Member type="Method">public Date GetCancellationDate()</Member>
+        <Member type="Method">public float GetProductionAmount()</Member>
+        <Modifier>None</Modifier>
+      </Entity>
+    </Entities>
+    <Relationships>
+      <Relationship type="Association" first="2" second="3">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Horizontal</EndOrientation>
+        <BendPoint relativeToStartShape="False">
+          <X>1206</X>
+          <Y>115</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Composition</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="4" second="0">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>103</X>
+          <Y>554</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>103</X>
+          <Y>566</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="4" second="1">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>126</X>
+          <Y>553</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>706</X>
+          <Y>526</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+      <Relationship type="Association" first="4" second="2">
+        <Label>
+        </Label>
+        <StartOrientation>Vertical</StartOrientation>
+        <EndOrientation>Vertical</EndOrientation>
+        <BendPoint relativeToStartShape="True">
+          <X>147</X>
+          <Y>556</Y>
+        </BendPoint>
+        <BendPoint relativeToStartShape="False">
+          <X>1131</X>
+          <Y>556</Y>
+        </BendPoint>
+        <Direction>Unidirectional</Direction>
+        <AssociationType>Aggregation</AssociationType>
+      </Relationship>
+    </Relationships>
+  </ProjectItem>
+</Project>

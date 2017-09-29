@@ -27,7 +27,6 @@
         <Member type="Method">public boolean IsStandard()</Member>
         <Member type="Method">public float GetAmountPerYear()</Member>
         <Member type="Method">public string GetNote()</Member>
-        <Member type="Method">public void newMethod()</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Class">
@@ -41,7 +40,7 @@
         <Member type="Field">private string mPhone</Member>
         <Member type="Field">private string mAddress</Member>
         <Member type="Constructor">public CCompany(string code, string name, string phone, string address)</Member>
-        <Member type="Constructor">public CCompany(string code, string name)</Member>
+        <Member type="Constructor">public CCompany(string code, string name, string address)</Member>
         <Member type="Method">public void SetCode(string codeValue)</Member>
         <Member type="Method">public void SetName(string nameValue)</Member>
         <Member type="Method">public void SetPhone(string phoneValue)</Member>
@@ -115,8 +114,6 @@
     </Entities>
     <Relationships>
       <Relationship type="Association" first="2" second="3">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="False">
@@ -127,8 +124,6 @@
         <AssociationType>Composition</AssociationType>
       </Relationship>
       <Relationship type="Association" first="4" second="0">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -143,8 +138,6 @@
         <AssociationType>Aggregation</AssociationType>
       </Relationship>
       <Relationship type="Association" first="4" second="1">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
@@ -159,8 +152,6 @@
         <AssociationType>Aggregation</AssociationType>
       </Relationship>
       <Relationship type="Association" first="4" second="2">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">

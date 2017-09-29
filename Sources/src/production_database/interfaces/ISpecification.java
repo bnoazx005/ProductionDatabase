@@ -22,14 +22,14 @@ public interface ISpecification {
 	 * @param product A reference to a product
 	 */
 	
-	void SetProduct(IProduct product);
+	void SetProduct(IProduct product) throws IllegalArgumentException;
 	
 	/**
 	 * The method sets up a reference to a manufacturer
 	 * @param company A reference to a manufacturer
 	 */
 	
-	void SetManufacturer(ICompany company);
+	void SetManufacturer(ICompany company) throws IllegalArgumentException;
 	
 	/**
 	 * The method sets up a date when a product was approved for production

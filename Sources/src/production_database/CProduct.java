@@ -17,9 +17,7 @@ import production_database.interfaces.*;
  * @author Kasimov Ildar
  */
 
-public final class CProduct implements IProduct {
-	private String  mName;
-	
+public final class CProduct extends CBaseDBEntity implements IProduct {	
 	private String  mCode;
 	
 	private boolean mIsStandard;
@@ -38,7 +36,8 @@ public final class CProduct implements IProduct {
 	 */
 	
 	public CProduct(String name, String code, boolean isStandard, float amountPerYear, String note) {
-		mName = name;
+		super(name);
+		
 		mCode = code;
 		
 		mIsStandard = isStandard;
@@ -58,7 +57,8 @@ public final class CProduct implements IProduct {
 	 */
 	
 	public CProduct(String name, String code) {
-		mName = name;
+		super(name);
+		
 		mCode = code;
 		
 		mIsStandard = false;
@@ -72,16 +72,6 @@ public final class CProduct implements IProduct {
 	
 	@SuppressWarnings("unused")
 	private CProduct() {		
-	}
-
-	/**
-	 * The method sets up a name of a product
-	 * @param name A name of a product
-	 */
-	
-	@Override 
-	public void SetName(String name) {
-		mName = name;		
 	}
 	
 	/**
@@ -123,17 +113,6 @@ public final class CProduct implements IProduct {
 	@Override 
 	public void SetNote(String note) {
 		mAdditionalNote = note;
-	}
-	
-		
-	/**
-	 * The method returns a name of a product
-	 * @return A string with a name of a product
-	 */
-	
-	@Override 
-	public String GetName() {
-		return mName;
 	}
 	
 	/**

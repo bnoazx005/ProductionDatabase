@@ -13,14 +13,7 @@ package production_database.interfaces;
  *
  */
 
-public interface IMaterial {
-	/**
-	 * The method sets up a name of a material
-	 * @param name A name of a material
-	 */
-	
-	void SetName(String name);
-	
+public interface IMaterial extends IBaseDBEntity {	
 	/**
 	 * The method sets up a string, which defines a units of measurement
 	 * @param units 
@@ -41,13 +34,6 @@ public interface IMaterial {
 	 */
 	
 	void SetType(E_MATERIAL_TYPE type);
-	
-	/**
-	 * The method returns a name of a material
-	 * @return A string with a name of a material
-	 */
-	
-	String GetName();
 	
 	/**
 	 * The method returns a string, which contains units of measurement

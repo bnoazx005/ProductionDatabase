@@ -13,14 +13,7 @@ package production_database.interfaces;
  *
  */
 
-public interface ICompany {
-	/**
-	 * The method sets up a name of a company
-	 * @param name A name of a company
-	 */
-	
-	void SetName(String name);
-	
+public interface ICompany extends IBaseDBEntity {	
 	/**
 	 * The method sets up a code of a company
 	 * @param code A string that contains code's value
@@ -41,14 +34,7 @@ public interface ICompany {
 	 */
 	
 	void SetAddress(String address);
-	
-	/**
-	 * The method returns a name of a company
-	 * @return A string with a name of a company
-	 */
-	
-	String GetName();
-	
+		
 	/**
 	 * The method returns a code of a company
 	 * @return A string with a company's code

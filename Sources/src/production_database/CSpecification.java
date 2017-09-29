@@ -21,7 +21,7 @@ import production_database.interfaces.*;
  * @author Kasimov Ildar
  */
 
-public final class CSpecification implements ISpecification {
+public final class CSpecification extends CBaseDBEntity implements ISpecification {
 	private IProduct              mProduct;
 	
 	private ICompany              mManufacturer;
@@ -38,6 +38,7 @@ public final class CSpecification implements ISpecification {
 	
 	/**
 	 * The constructor with main parameters
+	 * @param name A name of a specification
 	 * @param product A reference to a product
 	 * @param manufacturer A reference to a manufacturer
 	 * @param materials A reference to a map, which contains amounts of used materials per entity
@@ -48,9 +49,11 @@ public final class CSpecification implements ISpecification {
 	 * @throws IllegalArgumentException The method throws the exception when one of the parameters equals to null
 	 */
 
-	public CSpecification(IProduct product, ICompany manufacturer, Map<IMaterial, Float> materials,
+	public CSpecification(String name, IProduct product, ICompany manufacturer, Map<IMaterial, Float> materials,
 						  Date approvalDate, Date cancellationDate, Date yearOfProduction,
 						  float productionAmount) throws IllegalArgumentException {
+		super(name);
+		
 		if (product == null) {
 			throw new IllegalArgumentException("The product reference is not initialized");
 		}
@@ -80,6 +83,7 @@ public final class CSpecification implements ISpecification {
 	
 	/**
 	 * The constructor without materials parameter
+	 * @param name A name of a specification
 	 * @param product A reference to a product
 	 * @param manufacturer A reference to a manufacturer
 	 * @param approvalDate A date when a production was begun
@@ -89,8 +93,10 @@ public final class CSpecification implements ISpecification {
 	 * @throws IllegalArgumentException The method throws the exception when one of the parameters equals to null
 	 */
 	
-	public CSpecification(IProduct product, ICompany manufacturer, Date approvalDate, Date cancellationDate, 
+	public CSpecification(String name, IProduct product, ICompany manufacturer, Date approvalDate, Date cancellationDate, 
 						  Date yearOfProduction, float productionAmount) throws IllegalArgumentException {
+		super(name);
+		
 		if (product == null) {
 			throw new IllegalArgumentException("The product reference is not initialized");
 		}

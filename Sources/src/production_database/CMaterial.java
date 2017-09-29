@@ -16,9 +16,7 @@ import production_database.interfaces.*;
  * 
  * @author Kasimov Ildar
  */
-public final class CMaterial implements IMaterial {
-	private String          mName;
-	
+public final class CMaterial extends CBaseDBEntity implements IMaterial {	
 	private String          mUnits;
 	
 	private float           mPricePerUnit;
@@ -26,7 +24,8 @@ public final class CMaterial implements IMaterial {
 	private E_MATERIAL_TYPE mType;
 	
 	public CMaterial(String name, String units, float pricePerUnit, E_MATERIAL_TYPE type) {
-		mName  = name;
+		super(name);
+		
 		mUnits = units;
 		
 		mPricePerUnit = pricePerUnit;
@@ -37,17 +36,7 @@ public final class CMaterial implements IMaterial {
 	@SuppressWarnings("unused")
 	private CMaterial() {
 	}
-	
-	/**
-	 * The method sets up a name of a material
-	 * @param name A name of a material
-	 */
-	
-	@Override
-	public void SetName(String name) {
-		mName = name;
-	}
-	
+		
 	/**
 	 * The method sets up a string, which defines a units of measurement
 	 * @param units 
@@ -77,17 +66,7 @@ public final class CMaterial implements IMaterial {
 	public void SetType(E_MATERIAL_TYPE type) {
 		mType = type;
 	}
-	
-	/**
-	 * The method returns a name of a material
-	 * @return A string with a name of a material
-	 */
-	
-	@Override
-	public String GetName() {
-		return mName;
-	}
-	
+		
 	/**
 	 * The method returns a string, which contains units of measurement
 	 * @return A string, which contains units of measurement

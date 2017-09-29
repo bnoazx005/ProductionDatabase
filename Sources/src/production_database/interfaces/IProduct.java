@@ -10,15 +10,7 @@ package production_database.interfaces;
  * @author Kasimov Ildar
  */
 
-public interface IProduct {
-	
-	/**
-	 * The method sets up a name of a product
-	 * @param name A name of a product
-	 */
-	
-	void SetName(String name);
-	
+public interface IProduct extends IBaseDBEntity {	
 	/**
 	 * The method sets up a code of a product
 	 * @param code A string that contains code's value
@@ -47,15 +39,7 @@ public interface IProduct {
 	 */
 	
 	void SetNote(String note);
-	
 		
-	/**
-	 * The method returns a name of a product
-	 * @return A string with a name of a product
-	 */
-	
-	String GetName();
-	
 	/**
 	 * The method returns a code of a product
 	 * @return A string with a product's code

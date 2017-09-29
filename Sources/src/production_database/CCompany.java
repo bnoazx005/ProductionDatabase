@@ -16,9 +16,7 @@ import production_database.interfaces.*;
  * @author Kasimov Ildar
  *
  */
-public final class CCompany implements ICompany {
-	private String mName;
-	
+public final class CCompany extends CBaseDBEntity implements ICompany {
 	private String mCode;
 	
 	private String mPhone;
@@ -35,7 +33,8 @@ public final class CCompany implements ICompany {
 	 */
 	
 	public CCompany(String name, String code, String address, String phone) {
-		mName = name;
+		super(name);
+		
 		mCode = code;
 		
 		mPhone   = phone;
@@ -51,7 +50,8 @@ public final class CCompany implements ICompany {
 	 */
 	
 	public CCompany(String name, String code, String address) {
-		mName = name;
+		super(name);
+		
 		mCode = code;
 		
 		mPhone   = "";
@@ -60,15 +60,6 @@ public final class CCompany implements ICompany {
 	
 	@SuppressWarnings("unused")
 	private CCompany() {		
-	}
-	
-	/**
-	 * The method sets up a name of a company
-	 * @param name A name of a company
-	 */
-	@Override
-	public void SetName(String name) {
-		mName = name;
 	}
 	
 	/**
@@ -100,17 +91,7 @@ public final class CCompany implements ICompany {
 	public void SetAddress(String address) {
 		mAddress = address;
 	}
-	
-	/**
-	 * The method returns a name of a company
-	 * @return A string with a name of a company
-	 */
-	
-	@Override
-	public String GetName() {
-		return mName;
-	}
-	
+		
 	/**
 	 * The method returns a code of a company
 	 * @return A string with a company's code

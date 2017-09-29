@@ -16,7 +16,7 @@ import java.util.*;
  *
  */
 
-public interface ISpecification {
+public interface ISpecification extends IBaseDBEntity {
 	/**
 	 * The method sets up a reference to a product
 	 * @param product A reference to a product

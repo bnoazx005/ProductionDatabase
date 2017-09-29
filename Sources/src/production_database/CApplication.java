@@ -19,6 +19,7 @@ public final class CApplication {
 			databaseInstance = Db4o.openFile("production.data");
 
 			_createIfNotExistsManufacturer(databaseInstance, new CCompany("Fokin Pickups", "315774600010405", "г. Москва, ул. Грина, д. 32"));
+			_createIfNotExistsManufacturer(databaseInstance, new CCompany("Lepsky Guitars", "758874643420489", "г. Краснодар ул Трамвайная, 13", "+79182189877"));
 		}
 		finally {
 			if (databaseInstance != null) {
@@ -35,12 +36,14 @@ public final class CApplication {
 		ObjectSet existingSameCompanies = _findCompanyByName(database, company.GetName());
 		
 		if (existingSameCompanies.size() > 1) {
-			System.out.println("The company" + company + " is already exists in the database");
+			System.out.println("The company " + company + " is already exists in the database");
 			
 			return;
 		}
 		
 		database.store(company);
+
+		System.out.println("The company " + company + " was successfully added into the database");
 	}
 
 	private static ObjectSet _findCompanyByName(ObjectContainer database, String name) throws IllegalArgumentException {

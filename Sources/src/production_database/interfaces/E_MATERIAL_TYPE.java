@@ -15,15 +15,26 @@ package production_database.interfaces;
  */
 
 public enum E_MATERIAL_TYPE {
-	MT_MAPLE,
-	MT_EBONY,
-	MT_MAHOGANY,
-	MT_ROSEWOOD,
-	MT_COPPER,
-	MT_PLASTIC,
-	MT_ALUMINIUM,
-	MT_STEEL,
-	MT_MAGNET,
-	MT_IVORY,
-	MT_PEARL,
+	MT_MAPLE("Maple"),
+	MT_EBONY("Ebony"),
+	MT_MAHOGANY("Mahogany"),
+	MT_ROSEWOOD("Rosewood"),
+	MT_COPPER("Cooper"),
+	MT_PLASTIC("Plastic"),
+	MT_ALUMINIUM("Aluminium"),
+	MT_STEEL("Steel"),
+	MT_MAGNET("Magnet"),
+	MT_IVORY("Ivory"),
+	MT_PEARL("Pearl");
+	
+	private String mMaterialName;
+	
+	E_MATERIAL_TYPE(String name) {
+		mMaterialName = name;
+	}
+	
+	@Override
+	public String toString() {
+		return mMaterialName;
+	}
 }

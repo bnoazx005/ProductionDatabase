@@ -140,4 +140,19 @@ public final class CCompany implements ICompany {
 	public String GetAddress() {
 		return mAddress;
 	}
+	
+	@Override
+	public String toString() {
+		String resultString = "[" + mName;
+		
+		if (mCode != null) {
+			resultString += ", Code: (" + mCode + ")";
+		}
+		
+		if (mPhone != null && mPhone != "") {
+			resultString += ", Phone: " + mPhone;
+		}
+		
+		return resultString + "]";
+	}
 }

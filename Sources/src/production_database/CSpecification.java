@@ -331,4 +331,16 @@ public final class CSpecification implements ISpecification {
 		
 		return mUsedMaterials.get(material);
 	}
+	
+	@Override
+	public String toString() {
+		String resultString = "[";
+		
+		resultString += "Product : " + mProduct;
+		resultString += ", Manufacturer : " + mManufacturer;
+		
+		//add additional data here
+		
+		return resultString + "]";
+	}
 }

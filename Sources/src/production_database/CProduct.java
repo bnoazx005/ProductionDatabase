@@ -174,4 +174,18 @@ public final class CProduct implements IProduct {
 	public String GetNote() {
 		return mAdditionalNote;
 	}
+	
+	@Override
+	public String toString() {
+		String resultString = "[" + mName;
+		
+		if (mCode != null) {
+			resultString += ", Code: (" + mCode + ")";
+		}
+
+		resultString += ", Amount Per Year: " + mAmountPerYear;		
+		resultString += ", IsStandard: " + (mIsStandard ? "Yes" : "No");
+		
+		return resultString + "]";
+	}
 }

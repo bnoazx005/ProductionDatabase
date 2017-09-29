@@ -117,4 +117,14 @@ public final class CMaterial implements IMaterial {
 	public E_MATERIAL_TYPE GetType() {
 		return mType;
 	}
+	
+	@Override
+	public String toString() {
+		String resultString = "[" + mName;
+		
+		resultString += ", Price Per Unit: " + mPricePerUnit + "(" + mUnits + ")";		
+		resultString += ", Type: " + mType;
+		
+		return resultString + "]";
+	}
 }

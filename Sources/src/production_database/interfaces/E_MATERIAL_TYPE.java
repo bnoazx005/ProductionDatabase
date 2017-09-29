@@ -15,6 +15,15 @@ package production_database.interfaces;
  */
 
 public enum E_MATERIAL_TYPE {
-	MT_MATERIAL1,
-	MT_MATERIAL2,
+	MT_MAPLE,
+	MT_EBONY,
+	MT_MAHOGANY,
+	MT_ROSEWOOD,
+	MT_COPPER,
+	MT_PLASTIC,
+	MT_ALUMINIUM,
+	MT_STEEL,
+	MT_MAGNET,
+	MT_IVORY,
+	MT_PEARL,
 }

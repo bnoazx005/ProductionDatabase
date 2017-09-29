@@ -45,7 +45,7 @@ public final class CMaterial implements IMaterial {
 	
 	@Override
 	public void SetName(String name) {
-		
+		mName = name;
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public final class CMaterial implements IMaterial {
 	
 	@Override
 	public void SetUnits(String units) {
-		
+		mUnits = units;
 	}
 	
 	/**
@@ -65,7 +65,7 @@ public final class CMaterial implements IMaterial {
 	
 	@Override
 	public void SetPricePerUnit(float pricePerUnit) {
-		
+		mPricePerUnit = pricePerUnit;
 	}
 	
 	/**
@@ -75,7 +75,7 @@ public final class CMaterial implements IMaterial {
 	
 	@Override
 	public void SetType(E_MATERIAL_TYPE type) {
-		
+		mType = type;
 	}
 	
 	/**
@@ -85,7 +85,7 @@ public final class CMaterial implements IMaterial {
 	
 	@Override
 	public String GetName() {
-		return null;
+		return mName;
 	}
 	
 	/**
@@ -95,7 +95,7 @@ public final class CMaterial implements IMaterial {
 	
 	@Override
 	public String GetUnits() {
-		return null;
+		return mUnits;
 	}
 	
 	/**
@@ -105,7 +105,7 @@ public final class CMaterial implements IMaterial {
 	
 	@Override
 	public float GetPricePerUnit() {
-		return 0.0f;
+		return mPricePerUnit;
 	}
 	
 	/**
@@ -115,6 +115,6 @@ public final class CMaterial implements IMaterial {
 	
 	@Override
 	public E_MATERIAL_TYPE GetType() {
-		return E_MATERIAL_TYPE.MT_MATERIAL1;
+		return mType;
 	}
 }

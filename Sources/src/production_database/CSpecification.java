@@ -343,7 +343,20 @@ public final class CSpecification extends CBaseDBEntity implements ISpecificatio
 		String resultString = "[";
 		
 		resultString += "Product : " + mProduct;
-		resultString += ", Manufacturer : " + mManufacturer;
+		resultString += ",\n Manufacturer : " + mManufacturer;
+		resultString += ",\n Approved : " + mApprovalDate;
+		resultString += ",\n Cancelled : " + mCancellationDate;
+		resultString += ",\n ProductionYear : " + mYearOfProduction;
+		resultString += ",\n Materials: {\n";
+
+		for (Map.Entry<IMaterial, Float> entry : mUsedMaterials.entrySet())
+		{
+			resultString += "\t[ Name: " + entry.getKey();
+			resultString += ", Amount: " + entry.getValue();
+			resultString += "],\n";
+		}
+
+		resultString += "}";
 		
 		//add additional data here
 		

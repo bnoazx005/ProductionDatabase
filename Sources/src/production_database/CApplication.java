@@ -18,21 +18,33 @@ import production_database.interfaces.ISpecification;
 
 
 public final class CApplication {
-
+    /**
+     * The entry point of the program
+     * @param args program's arguments list
+     */    
     public static void main(String[] args) {
 
         ObjectContainer dbContext = Db4oEmbedded.openFile(
         	Db4oEmbedded.newConfiguration(), "./production.data");
         
-        IProduct[] products	= _formProductsList();        
-        ICompany[] companies	= _formCompaniesList();        
-        IMaterial[] materials	= _formMaterialsList();
+        /* _formProductsList returns a hard-coded array of products */
+        IProduct[] products	= _formProductsList();
         
+        /* _formCompaniesList returns a hard-coded array of companies */
+        ICompany[] companies	= _formCompaniesList();
+        
+        /* _formMaterialsList returns a hard-coded array of materials */
+        IMaterial[] materials	= _formMaterialsList();	
+        
+        /* _formSpecificationsList returns a hard-coded array of specifications */
         ISpecification[] specifications = _formSpecificationsList(materials,
         	                                                  companies,
         	                                                  products);
         
         try {
+            /*
+             * Initialize repositories for the specified data
+             */
             CProductRepository productsRepository = 
         	    new CProductRepository(dbContext);
             
@@ -100,6 +112,12 @@ public final class CApplication {
     }
     
     private static ICompany[] _formCompaniesList() {
+	/*CCompany's constructor description:
+	 * first	- A company's name,
+	 * second	- A company's code,
+	 * third	- A company's address
+	 * fourth	- A company's phone
+	 */
         return new CCompany[] {
             new CCompany("Fokin Pickups", "315774600010405", 
         	         "г. Москва, ул. Грина, д. 32"),
@@ -109,6 +127,12 @@ public final class CApplication {
     }
     
     private static IMaterial[] _formMaterialsList() {
+	/*CMaterial's constructor description:
+	 * first	- a name of a material,
+	 * second	- measurements units,
+	 * third	- a price per single unit,
+	 * fourth	- a type of a material
+	 */
         return new CMaterial[] {
             new CMaterial("Alluminium", "kg./rub.", 70, 
         	          E_MATERIAL_TYPE.MT_ALUMINIUM),
@@ -130,6 +154,13 @@ public final class CApplication {
     }
     
     private static IProduct[] _formProductsList() {
+	/*CProduct's constructor description:
+	 * first	- A name of a product
+	 * second	- A code of a product
+	 * third	- Is a product standard
+	 * fourth	- An amount of product's production per year
+	 * fifth	- An additional notes about product (not used here)
+	 */
         return new CProduct[] {
             new CProduct("Hot Breeze Humbucker pickup", "1235412323", true,
         	         180, null),
@@ -187,6 +218,7 @@ public final class CApplication {
         		           companies[0], approvalDate,
         		           cancellationDate, productionYear, 180);
         
+        /*Attach materials to the specification's object*/
         hotBreezeHumbPickup.AddMaterial(materials[2], 12.0f); //magnets
         hotBreezeHumbPickup.AddMaterial(materials[1], 0.3f);  //copper wire
         hotBreezeHumbPickup.AddMaterial(materials[6], 1.0f);  //plastic coil    
@@ -222,8 +254,9 @@ public final class CApplication {
         			   cancellationDate, productionYear, 5);
 
         sModelLepskyGuitar.AddMaterial(materials[5], 0.1f); //mahagony
-        sModelLepskyGuitar.AddMaterial(materials[7], 0.07f); //rosewood 
+        sModelLepskyGuitar.AddMaterial(materials[7], 0.07f); //rosewood
         
+        /*returns three specifications within the array*/
         return new CSpecification[] {
                 hotBreezeHumbPickup, woodstockSinglePickup, sModelLepskyGuitar
         };

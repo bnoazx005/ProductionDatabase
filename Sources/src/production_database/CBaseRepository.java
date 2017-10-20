@@ -165,4 +165,19 @@ public abstract class CBaseRepository<T extends IBaseDBEntity>
      * stored in the database
      */    
     public abstract ObjectSet<T> FindAll();
+    
+    /**
+     * The method returns a set of entities that corresponds to the 
+     * specified query
+     * @param queryPredicate A predicate that specifies a query
+     * @return A set of entities that corresponds the specified query
+     */
+    public ObjectSet<T> Find(Predicate<T> queryPredicate) {
+	if (queryPredicate == null) {
+            throw new IllegalArgumentException(
+        	    "A query predicate object cannot equal to null");
+	}
+	
+	return mDatabaseContext.query(queryPredicate);
+    }
 }

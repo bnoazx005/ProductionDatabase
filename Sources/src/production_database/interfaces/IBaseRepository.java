@@ -6,6 +6,7 @@
 package production_database.interfaces;
 
 import com.db4o.ObjectSet;
+import com.db4o.query.Predicate;
 
 /**
  * interface IBaseRepository
@@ -63,4 +64,12 @@ public interface IBaseRepository<T extends IBaseDBEntity> {
      * in the database
      */ 
     ObjectSet<T> FindAll();
+    
+    /**
+     * The method returns a set of entities that corresponds to the 
+     * specified query
+     * @param queryPredicate A predicate that specifies a query
+     * @return A set of entities that corresponds the specified query
+     */
+    ObjectSet<T> Find(Predicate<T> queryPredicate);
 }

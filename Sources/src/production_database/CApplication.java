@@ -4,7 +4,6 @@
  */
 package production_database;
 
-
 import java.util.Calendar;
 import java.util.Date;
 import com.db4o.Db4oEmbedded;
@@ -15,7 +14,6 @@ import production_database.interfaces.ICompany;
 import production_database.interfaces.IMaterial;
 import production_database.interfaces.IProduct;
 import production_database.interfaces.ISpecification;
-
 
 public final class CApplication {
     /**
@@ -82,21 +80,14 @@ public final class CApplication {
             }
             
             //print all the data
-            System.out.println("Materials' List: ");
-            _printData(materialsRepository.FindAll());
-            System.out.println();
-
-            System.out.println("Companies' List: ");
-            _printData(companiesRepository.FindAll());
-            System.out.println();
+            System.out.println("[DATABASE]");
+            _printResults("Materials' List: ", materialsRepository.FindAll());
+            _printResults("Companies' List: ", companiesRepository.FindAll());
+            _printResults("Products' List: ", productsRepository.FindAll());
+            _printResults("Specifications' List: ", specificationsRepository.FindAll());
             
-            System.out.println("Products' List: ");
-            _printData(productsRepository.FindAll());
-            System.out.println();
-            
-            System.out.println("Specifications' List: ");
-            _printData(specificationsRepository.FindAll());
-            System.out.println();
+            //print out queries results
+            System.out.println("[QUERIES]");
             
             System.out.println("The program has finished its work");
         }
@@ -109,6 +100,14 @@ public final class CApplication {
         for (T entity : data) {
             System.out.println(entity);
         }
+    }
+    
+    private static <T> void _printResults(String header, ObjectSet<T> data) {
+	System.out.println(header);
+	
+	_printData(data);
+	
+	System.out.println();
     }
     
     private static ICompany[] _formCompaniesList() {
@@ -148,7 +147,7 @@ public final class CApplication {
         	          E_MATERIAL_TYPE.MT_MAHOGANY),
             new CMaterial("Plastic coil", "element/rub", 500, 
         	          E_MATERIAL_TYPE.MT_PLASTIC),
-            new CMaterial("Rosewood board", "m^3/rub.", 65000, 
+            new CMaterial("Rosewood board", "m^3/rub.", 55000, 
         	          E_MATERIAL_TYPE.MT_ROSEWOOD),
         };
     }

@@ -8,6 +8,8 @@ package production_database;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
+import com.db4o.query.Query;
+
 import production_database.interfaces.IBaseDBEntity;
 import production_database.interfaces.IBaseRepository;
 
@@ -179,5 +181,28 @@ public abstract class CBaseRepository<T extends IBaseDBEntity>
 	}
 	
 	return mDatabaseContext.query(queryPredicate);
+    }
+    
+    /**
+     * The method returns a set of entities that corresponds to the 
+     * specified query
+     * @param query A query's object
+     * @return A set of entities that corresponds the specified query
+     */
+    public ObjectSet<T> Find(Query query) {
+	if (query == null) {
+            throw new IllegalArgumentException(
+        	    "A query object cannot equal to null");
+	}
+	
+	return query.execute();
+    }
+    
+    /**
+     * The method returns a reference to a created query's object
+     * @return A reference to a created query's object
+     */
+    public Query CreateQuery() {
+	return mDatabaseContext.query();
     }
 }

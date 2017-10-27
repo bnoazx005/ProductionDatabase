@@ -89,6 +89,8 @@ public final class CApplication {
             //print out queries results
             System.out.println("[QUERIES]");
             
+            _printResults("Most expensive product: ", )
+            
             System.out.println("The program has finished its work");
         }
         finally {

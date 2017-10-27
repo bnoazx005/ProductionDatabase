@@ -32,6 +32,8 @@ public final class CSpecification
     
     private float			mProductionAmount;
     
+    private float			mProductPrice;
+    
     /**
      * The constructor with main parameters
      * @param name A name of a specification
@@ -43,13 +45,14 @@ public final class CSpecification
      * @param cancellationDate A date when a production was canceled
      * @param yearOfProduction A year when a production was begun
      * @param productionAmount An amount of produced product
+     * @param productPrice An price of a product
      * @throws IllegalArgumentException The method throws the exception 
      * when one of the parameters equals to null
      */
     public CSpecification(String name, IProduct product, ICompany manufacturer,
 	                  Map<IMaterial, Float> materials, Date approvalDate,
 	                  Date cancellationDate, Date yearOfProduction,
-                          float productionAmount)
+                          float productionAmount, float productPrice)
                         	  throws IllegalArgumentException {
         super(name);
         
@@ -81,6 +84,8 @@ public final class CSpecification
         mYearOfProduction = yearOfProduction;
         
         mProductionAmount = productionAmount;
+        
+        mProductPrice = productPrice;
     }
     
     /**
@@ -92,12 +97,13 @@ public final class CSpecification
      * @param cancellationDate A date when a production was canceled
      * @param yearOfProduction A year when a production was begun
      * @param productionAmount An amount of produced product
+     * @param productPrice An price of a product
      * @throws IllegalArgumentException The method throws the exception when
      * one of the parameters equals to null
      */    
     public CSpecification(String name, IProduct product, ICompany manufacturer,
 	                  Date approvalDate, Date cancellationDate,
-                          Date yearOfProduction, float productionAmount)
+                          Date yearOfProduction, float productionAmount, float productPrice)
                         	  throws IllegalArgumentException {
         super(name);
         
@@ -124,6 +130,8 @@ public final class CSpecification
         mYearOfProduction = yearOfProduction;
         
         mProductionAmount = productionAmount;
+        
+        mProductPrice = productPrice;
     }
 
     @SuppressWarnings("unused")
@@ -198,6 +206,14 @@ public final class CSpecification
     @Override 
     public void SetProductionAmount(float amount) {
         mProductionAmount = amount;
+    }
+    
+    /**
+     * The method sets up a price of a product
+     * @param price
+     */
+    public void SetPrice(float price) {
+	mProductPrice = price;
     }
     
     /**
@@ -297,6 +313,14 @@ public final class CSpecification
     }
     
     /**
+     * The method sets up a price of a product
+     * @param price
+     */
+    public float GetPrice() {
+	return mProductPrice;
+    }
+    
+    /**
      * The method returns a reference to a material if a specification contains
      * the specified one 
      * @param name A material's name
@@ -356,6 +380,7 @@ public final class CSpecification
         resultString += ",\n Approved : " + mApprovalDate;
         resultString += ",\n Cancelled : " + mCancellationDate;
         resultString += ",\n ProductionYear : " + mYearOfProduction;
+        resultString += ",\n ProductPrice : " + mProductPrice;
         resultString += ",\n Materials: {\n";
 
         for (Map.Entry<IMaterial, Float> entry : mUsedMaterials.entrySet())

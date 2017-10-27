@@ -215,7 +215,7 @@ public final class CApplication {
         CSpecification hotBreezeHumbPickup = 
         	new CSpecification("HotBreezeHumbuckerPickup", products[0], 
         		           companies[0], approvalDate,
-        		           cancellationDate, productionYear, 180);
+        		           cancellationDate, productionYear, 180, 3600);
         
         /*Attach materials to the specification's object*/
         hotBreezeHumbPickup.AddMaterial(materials[2], 12.0f); //magnets
@@ -233,7 +233,7 @@ public final class CApplication {
         CSpecification woodstockSinglePickup = 
         	new CSpecification("WoodstockSinglePickup", products[6],
         		           companies[0], approvalDate,
-        		           cancellationDate, productionYear, 135);
+        		           cancellationDate, productionYear, 135, 2700);
 
         woodstockSinglePickup.AddMaterial(materials[3], 6.0f); //magnets
         woodstockSinglePickup.AddMaterial(materials[1], 0.15f);  //copper wire
@@ -250,7 +250,7 @@ public final class CApplication {
         CSpecification sModelLepskyGuitar = 
         	new CSpecification("Lepsky S Model guitar", products[7],
         			   companies[1], approvalDate,
-        			   cancellationDate, productionYear, 5);
+        			   cancellationDate, productionYear, 5, 66000);
 
         sModelLepskyGuitar.AddMaterial(materials[5], 0.1f); //mahagony
         sModelLepskyGuitar.AddMaterial(materials[7], 0.07f); //rosewood

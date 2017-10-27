@@ -50,6 +50,12 @@ public interface ISpecification extends IBaseDBEntity {
     void SetProductionAmount(float amount);
     
     /**
+     * The method sets up a price of a product
+     * @param price
+     */
+    void SetPrice(float price);
+    
+    /**
      * The method adds a new reference to a material into the specification
      * @param material A reference to a material
      * @param amount An amount of used material
@@ -99,6 +105,12 @@ public interface ISpecification extends IBaseDBEntity {
      * @return An amount of a production
      */
     float GetProductionAmount();
+    
+    /**
+     * The method sets up a price of a product
+     * @param price
+     */
+    float GetPrice();
     
     /**
      * The method returns a reference to a material if a specification 

@@ -9,7 +9,11 @@ import java.util.Date;
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.query.Predicate;
+import com.db4o.query.Query;
+
 import production_database.interfaces.E_MATERIAL_TYPE;
+import production_database.interfaces.IBaseRepository;
 import production_database.interfaces.ICompany;
 import production_database.interfaces.IMaterial;
 import production_database.interfaces.IProduct;
@@ -89,7 +93,72 @@ public final class CApplication {
             //print out queries results
             System.out.println("[QUERIES]");
             
-            _printResults("Most expensive product: ", )
+            /*
+             * Most expensive product query (самое дорогое изделие)
+             * >===============================================================
+             */
+            Query mostExpensiveProductQuery = 
+        	    _getMostExpensiveProductQuery(specificationsRepository);
+            ObjectSet<CSpecification> mostExpensiveProductQueryResult = 
+        	    specificationsRepository.Find(mostExpensiveProductQuery);
+            
+            if (mostExpensiveProductQueryResult.size() >= 1) {
+                System.out.println("Most expensive product: " + 
+                		   mostExpensiveProductQueryResult.get(0));
+            }
+            else {
+        	System.out.println("Most expensive product: None");        	
+            }
+            
+            /*
+             * Most expensive product query (самое дорогое изделие)
+             * <===============================================================
+             */
+            
+            /*
+             * The Youngest and the oldest products (самый старый и самый молодой продукт)
+             * >===============================================================
+             */
+            Query youngestAndOldestProductsQuery = 
+        	    _getYoungestOldestProductsQuery(specificationsRepository);
+            ObjectSet<CSpecification> youngestAndOldestProductsQueryResult = 
+        	    specificationsRepository.Find(youngestAndOldestProductsQuery);
+            
+            if (youngestAndOldestProductsQueryResult.size() >= 2) {
+        	System.out.println("The youngest and the oldest products by approval date: ");
+        	System.out.println("The youngest: " + youngestAndOldestProductsQueryResult.get(0));
+        	System.out.println("The oldest: " + 
+        		youngestAndOldestProductsQueryResult.get(
+        			youngestAndOldestProductsQueryResult.size() - 1));  
+            }
+            else if (youngestAndOldestProductsQueryResult.size() == 1) {
+        	System.out.println("The youngest and the oldest products by approval date: " +
+        		youngestAndOldestProductsQueryResult.get(0));         	
+            }
+            else {
+        	System.out.println("The youngest and the oldest products by approval date: None");         	
+            }
+            
+            /*
+             * Youngest and oldest products (самый старый и самый молодой продукт)
+             * <===============================================================
+             */
+            
+            /*
+             * The products that weren't produced in Y year 
+             * (список изделий, которые не производились в Y году)
+             * >===============================================================
+             */
+            int year = 2017;
+            
+            _printResults("The products that weren't produced in " + year + " year: ", 
+        	    specificationsRepository.Find(_getProductsWerentProducedInYear(year)));
+            
+            /*
+             * The products that weren't produced in Y year 
+             * (список изделий, которые не производились в Y году)
+             * <===============================================================
+             */
             
             System.out.println("The program has finished its work");
         }
@@ -260,6 +329,56 @@ public final class CApplication {
         /*returns three specifications within the array*/
         return new CSpecification[] {
                 hotBreezeHumbPickup, woodstockSinglePickup, sModelLepskyGuitar
+        };
+    }
+    
+    /**
+     * The method creates a query that returns a list of specifications 
+     * in descending order by products' prices
+     * @param repository A reference to a repository's object
+     * @return A list of objects
+     */
+    private static Query _getMostExpensiveProductQuery(CSpecificationRepository repository) {
+	Query query = repository.CreateQuery();
+	
+	query.constrain(CSpecification.class); /* seeking for specifications */
+	/* sort them in descending order by a price of a product */
+	query.descend("mProductPrice").orderDescending(); 
+	
+	return query;
+    }
+    
+    /**
+     * The method creates a query that returns a list of specifications 
+     * in descending order by production date
+     * @param repository A reference to a repository's object
+     * @return A list of objects
+     */
+    private static Query _getYoungestOldestProductsQuery(CSpecificationRepository repository) {
+	Query query = repository.CreateQuery();
+	
+	query.constrain(CSpecification.class); /* seeking for specifications */
+	/* sort them in descending order by an approval date */
+	query.descend("mApprovalDate").orderDescending();
+	
+	return query;
+    }
+    
+    /**
+     * The method returns a reference to a predicate, which allows to select
+     * products that weren't produced in Y year
+     * @return
+     */
+    private static Predicate<CSpecification> _getProductsWerentProducedInYear(int year) {
+	return new Predicate<CSpecification>() {
+            public boolean match(CSpecification entity) {
+        	Calendar calendar = Calendar.getInstance();
+        	calendar.setTime(entity.GetYearOfProduction());
+        	
+        	int productionYear = calendar.get(Calendar.YEAR);
+
+        	return productionYear != year;
+            }
         };
     }
 }

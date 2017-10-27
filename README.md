@@ -20,3 +20,23 @@ A minimal list of characteristics:
 - material: name, type, units, price per unit, notes about using in some product;
 
 - specification: approval and date, a list of materials and amount per material, year when a product was produced;
+
+A list of queries that should be implemented:
+
+- Display a product that contains the most materials of "non-ferrous metal" type.
+
+- Display a list of products for which the cost of materials in Y year decreased compared to the previous year.
+
+- Display a list of products that were not produced in Yth year.
+
+- Display an average consumption of Nth material in Yth year.
+
+- Display the youngest and the oldest products.
+
+- Display a product that consists of more amount of materials than others.
+
+- Display the most used material.
+
+- Display an information about a company that has lowest amount of products.
+
+- Display the most expensive product.

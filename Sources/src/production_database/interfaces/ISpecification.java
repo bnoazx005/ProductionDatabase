@@ -129,4 +129,10 @@ public interface ISpecification extends IBaseDBEntity {
      */
     float GetMaterialAmount(IMaterial material) 
 	throws NoSuchElementException, IllegalArgumentException;
+    
+    /**
+     * The method returns a number of used materials
+     * @return A number of used materials
+     */
+    int GetMaterialsCount();
 }

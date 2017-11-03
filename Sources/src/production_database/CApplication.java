@@ -160,13 +160,29 @@ public final class CApplication {
              * <===============================================================
              */
             
+            /*
+             * Display a product that consists of more amount of materials than others
+             * (Вывести изделие в котором использовано больше всего материалов)
+             * >===============================================================
+             */
+
+            System.out.println("The product that consists of more amount of materials than others: ");
+            
+            System.out.println(_findFirstProductByMaterialsNumber(specificationsRepository));
+            
+            /*
+             * Display a product that consists of more amount of materials than others
+             * (Вывести изделие в котором использовано больше всего материалов)
+             * <===============================================================
+             */
+            
             System.out.println("The program has finished its work");
         }
         finally {
             dbContext.close();
         }
     }
-    
+
     private static <T> void _printData(ObjectSet<T> data) {
         for (T entity : data) {
             System.out.println(entity);
@@ -326,9 +342,29 @@ public final class CApplication {
         sModelLepskyGuitar.AddMaterial(materials[5], 0.1f); //mahagony
         sModelLepskyGuitar.AddMaterial(materials[7], 0.07f); //rosewood
         
+        calendar.set(2013, 0, 1);
+        
+        productionYear = calendar.getTime();
+        
+        calendar.set(2013, 0, 1);
+        
+        approvalDate = calendar.getTime();
+
+        calendar.set(2013, 0, 1);
+        
+        cancellationDate = calendar.getTime();	
+        
+        CSpecification gravityCustomGuitar = 
+        	new CSpecification("Gravity 7 Custom SN Model guitar", products[14],
+        			   companies[1], approvalDate,
+        			   cancellationDate, productionYear, 1, 78000);
+
+        gravityCustomGuitar.AddMaterial(materials[5], 0.1f); //mahagony
+        gravityCustomGuitar.AddMaterial(materials[7], 0.07f); //rosewood
+        
         /*returns three specifications within the array*/
         return new CSpecification[] {
-                hotBreezeHumbPickup, woodstockSinglePickup, sModelLepskyGuitar
+                hotBreezeHumbPickup, woodstockSinglePickup, sModelLepskyGuitar, gravityCustomGuitar
         };
     }
     
@@ -380,5 +416,36 @@ public final class CApplication {
         	return productionYear != year;
             }
         };
+    }
+    
+    /**
+     * The method returns a reference to a specifications, which contains more materials
+     * than others
+     * @param specificationsRepository A reference to a repository
+     * @return A reference to a specifications, which contains more materials
+     * than others
+     */
+    private static CSpecification _findFirstProductByMaterialsNumber(
+	    CSpecificationRepository specificationsRepository) {
+	ObjectSet<CSpecification> specifications = specificationsRepository.FindAll();
+
+	CSpecification result   = null;
+	CSpecification currSpec = null;
+	
+	int maxMaterialsCount = -1;
+	
+	for (int i = 0; i < specifications.size(); ++i) {
+	    currSpec = specifications.get(i);
+	    
+	    int currMaterialsCount = 0;
+	    
+	    if ((currMaterialsCount = currSpec.GetMaterialsCount()) > maxMaterialsCount) {
+		maxMaterialsCount = currMaterialsCount;
+
+		result = currSpec;
+	    }
+	}
+	
+	return result;
     }
 }

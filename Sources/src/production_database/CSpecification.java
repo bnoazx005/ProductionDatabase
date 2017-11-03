@@ -371,6 +371,14 @@ public final class CSpecification
         return mUsedMaterials.get(material);
     }
     
+    /**
+     * The method returns a number of used materials
+     * @return A number of used materials
+     */
+    public int GetMaterialsCount() {
+	return mUsedMaterials.size();
+    }
+    
     @Override
     public String toString() {
         String resultString = "[";

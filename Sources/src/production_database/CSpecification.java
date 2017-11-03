@@ -379,6 +379,14 @@ public final class CSpecification
 	return mUsedMaterials.size();
     }
     
+    /**
+     * The method returns an array of used materials
+     * @return An array of used materials
+     */
+    public IMaterial[] GetMaterials() {
+	return mUsedMaterials.keySet().toArray(new IMaterial[0]);
+    }
+    
     @Override
     public String toString() {
         String resultString = "[";

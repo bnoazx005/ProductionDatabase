@@ -17,7 +17,7 @@ public enum E_MATERIAL_TYPE {
     MT_EBONY("Ebony"),
     MT_MAHOGANY("Mahogany"),
     MT_ROSEWOOD("Rosewood"),
-    MT_COPPER("Cooper"),
+    MT_COPPER("Copper"),
     MT_PLASTIC("Plastic"),
     MT_ALUMINIUM("Aluminium"),
     MT_STEEL("Steel"),

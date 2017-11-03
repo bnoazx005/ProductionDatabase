@@ -135,4 +135,10 @@ public interface ISpecification extends IBaseDBEntity {
      * @return A number of used materials
      */
     int GetMaterialsCount();
+    
+    /**
+     * The method returns an array of used materials
+     * @return An array of used materials
+     */
+    IMaterial[] GetMaterials();
 }

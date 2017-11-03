@@ -6,6 +6,9 @@ package production_database;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
 import com.db4o.Db4oEmbedded;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -173,6 +176,24 @@ public final class CApplication {
             /*
              * Display a product that consists of more amount of materials than others
              * (Вывести изделие в котором использовано больше всего материалов)
+             * <===============================================================
+             */
+            
+            /*
+             * Tthe most used material
+             * (Материал, который используется чаще остальных)
+             * >===============================================================
+             */
+
+            System.out.println("The most used material: ");
+            
+            IMaterial mostUsedMaterial = _findTheMostUsedMaterial(specificationsRepository, materialsRepository);
+            
+            System.out.println(mostUsedMaterial != null ? mostUsedMaterial : "None");
+            
+            /*
+             * The most used material
+             * (Материал, который используется чаще остальных)
              * <===============================================================
              */
             
@@ -447,5 +468,65 @@ public final class CApplication {
 	}
 	
 	return result;
+    }
+    
+    /**
+     * The method returns a reference to the most used material
+     * @param specificationsRepository A reference to a specifications' repository
+     * @param materialsRepository A reference to a materials' repository
+     * @return A reference to the most used material
+     */
+    private static CMaterial _findTheMostUsedMaterial(
+	    CSpecificationRepository specificationsRepository,
+	    CMaterialRepository materialsRepository) {
+	// first type describes a material's name, second is an amount of its usage
+	Map<String, Integer> materialsUsageTable = new HashMap<String, Integer>();
+	
+	ObjectSet<CSpecification> specifications = specificationsRepository.FindAll();
+
+	CSpecification currSpec = null;
+
+	IMaterial[] currMaterials = null;
+	IMaterial currMaterial    = null;
+	
+	String currMaterialName = null;
+	
+	//build a usage table
+	for (int i = 0; i < specifications.size(); ++i) {
+	    currSpec = specifications.get(i);
+
+	    currMaterials = currSpec.GetMaterials();
+	    
+	    for (int j = 0; j < currMaterials.length; ++j) {
+		currMaterial = currMaterials[j];
+		
+		currMaterialName = currMaterial.GetName();
+		
+		materialsUsageTable.put(currMaterialName,
+			materialsUsageTable.getOrDefault(currMaterialName, 0) + 1);
+	    }
+	}
+
+	//iterate over it and store a material with max value of usage
+	String mostUsedMaterialName = null;
+	
+	int mostUsedMaterialUsageValue = -1;
+	
+	for (Map.Entry<String, Integer> entry : materialsUsageTable.entrySet())
+	{
+	    if (entry.getValue() > mostUsedMaterialUsageValue) {
+		mostUsedMaterialUsageValue = entry.getValue();
+		
+		mostUsedMaterialName = entry.getKey();
+	    }
+	}
+	
+	ObjectSet<CMaterial> resultsArray = materialsRepository.FindByName(mostUsedMaterialName);
+	
+	if (resultsArray.size() < 1) {
+	    return null;
+	}
+	
+	return resultsArray.get(0);
     }
 }

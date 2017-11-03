@@ -197,6 +197,25 @@ public final class CApplication {
              * <===============================================================
              */
             
+            /*
+             * The company that has lowest amount of products
+             * (Предприятие, которое выпускает меньше всего изделий)
+             * >===============================================================
+             */
+
+            System.out.println("The company that has lowest amount of products: ");
+            
+            ICompany companyWithLowestProduction = 
+        	    _findCompanyWithLowestProdution(specificationsRepository, companiesRepository);
+            
+            System.out.println(companyWithLowestProduction != null ? companyWithLowestProduction : "None");
+            
+            /*
+             * The company that has lowest amount of products
+             * (Предприятие, которое выпускает меньше всего изделий)
+             * <===============================================================
+             */
+            
             System.out.println("The program has finished its work");
         }
         finally {
@@ -522,6 +541,62 @@ public final class CApplication {
 	}
 	
 	ObjectSet<CMaterial> resultsArray = materialsRepository.FindByName(mostUsedMaterialName);
+	
+	if (resultsArray.size() < 1) {
+	    return null;
+	}
+	
+	return resultsArray.get(0);
+    }
+    
+    /**
+     * The method returns a reference to a company with the lowest production's amount
+     * @param specificationsRepository A reference to a specifications' repository
+     * @param companiesRepository A reference to a companies' repository
+     * @return A reference to a company with the lowest production's amount
+     */
+    private static CCompany _findCompanyWithLowestProdution(
+	    CSpecificationRepository specificationsRepository,
+	    CCompanyRepository companiesRepository) {
+	// first type describes a company's name, second is a production's amount
+	Map<String, Integer> productionByCompanies = new HashMap<String, Integer>();
+	
+	ObjectSet<CSpecification> specifications = specificationsRepository.FindAll();
+
+	CSpecification currSpec = null;
+
+	ICompany currCompany = null;
+	
+	String currCompanyName = null;
+	
+	//build a table
+	for (int i = 0; i < specifications.size(); ++i) {
+	    currSpec = specifications.get(i);
+
+	    currCompany = currSpec.GetManufacturer();
+	    
+	    currCompanyName = currCompany.GetName();
+
+	    productionByCompanies.put(currCompanyName,
+		    productionByCompanies.getOrDefault(currCompanyName, 0) + 1);
+	}
+
+	//iterate over it and store a company with min value of production
+	String lowestProductionCompanyName = null;
+	
+	int mostUsedMaterialUsageValue = Integer.MAX_VALUE;
+	
+	for (Map.Entry<String, Integer> entry : productionByCompanies.entrySet())
+	{
+	    if (entry.getValue() < mostUsedMaterialUsageValue) {
+		mostUsedMaterialUsageValue = entry.getValue();
+		
+		lowestProductionCompanyName = entry.getKey();
+	    }
+	}
+	
+	ObjectSet<CCompany> resultsArray = 
+		companiesRepository.FindByName(lowestProductionCompanyName);
 	
 	if (resultsArray.size() < 1) {
 	    return null;

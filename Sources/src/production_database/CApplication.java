@@ -15,6 +15,8 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Predicate;
 import com.db4o.query.Query;
 
+import production_database.evaluators.CSpecificMaterialEvaluation;
+import production_database.evaluators.CSpecificProductionYearEvaluation;
 import production_database.interfaces.E_MATERIAL_TYPE;
 import production_database.interfaces.IBaseRepository;
 import production_database.interfaces.ICompany;
@@ -214,6 +216,24 @@ public final class CApplication {
             /*
              * The company that has lowest amount of products
              * (Предприятие, которое выпускает меньше всего изделий)
+             * <===============================================================
+             */
+            
+            /*
+             * Display an average consumption of Nth material in Yth year
+             * (Вывести среднемесячный расход материала 'N' в Y году)
+             * >===============================================================
+             */
+            
+            System.out.println("Month average consumption of product " +
+        	    "[Humbucker pickup magnet] in " +
+        	    "2017 year: " +
+        	    _getMonthAvgMaterialConsumption(materialsRepository, specificationsRepository, 
+        		    "Humbucker pickup magnet", 2017));
+            
+            /*
+             * Display an average consumption of Nth material in Yth year
+             * (Вывести среднемесячный расход материала 'N' в Y году)
              * <===============================================================
              */
             
@@ -601,5 +621,47 @@ public final class CApplication {
 	}
 	
 	return resultsArray.get(0);
+    }
+    
+    /**
+     * The method returns a month average consumption of the material in the specified year
+     * @param materials Materials' repository
+     * @param specifications Specifications' repository
+     * @param materialName A material's name
+     * @param year A year of a production
+     * @return A month average consumption of the material in the specified year
+     */
+    private static float _getMonthAvgMaterialConsumption(CMaterialRepository materials,
+	    CSpecificationRepository specifications, String materialName,
+	    int year) {
+	ObjectSet<CMaterial> foundMaterials = materials.FindByName(materialName);
+	
+	if (foundMaterials.size() < 1) {
+	    return 0.0f;
+	}
+	
+	IMaterial specifiedMaterial = foundMaterials.get(0);
+	
+	Query specsQuery = specifications.CreateQuery();
+	
+	// select specifications
+	specsQuery.constrain(CSpecification.class);
+	// only ones that were produced in (year) year
+	specsQuery.constrain(new CSpecificProductionYearEvaluation(year, false));
+	// select specifications, which uses material (materialName)
+	specsQuery.constrain(new CSpecificMaterialEvaluation(specifiedMaterial));
+	
+	//compute average value per month
+	ObjectSet<CSpecification> specs = specifications.Find(specsQuery);
+
+	float avgConsumption = 0.0f;
+	
+        for (CSpecification entity : specs) {
+            avgConsumption += entity.GetMaterialAmount(specifiedMaterial);
+        }
+        
+        avgConsumption /= 12.0;
+	
+	return avgConsumption;
     }
 }

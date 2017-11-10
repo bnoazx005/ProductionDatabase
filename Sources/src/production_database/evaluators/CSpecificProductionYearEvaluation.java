@@ -2,7 +2,7 @@
  * CSpecificProductionYearEvaluation.java
  * @author Kasimov Ildar
  */
-package production_database;
+package production_database.evaluators;
 
 import java.util.Calendar;
 

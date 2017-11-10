@@ -155,7 +155,8 @@ public final class CApplication {
             int year = 2017;
             
             _printResults("The products that weren't produced in " + year + " year: ", 
-        	    specificationsRepository.Find(_getProductsWerentProducedInYear(year)));
+        	    specificationsRepository.Find(_getProductsWerentProducedInYear(
+        		    specificationsRepository, year)));
             
             /*
              * The products that weren't produced in Y year 
@@ -441,21 +442,18 @@ public final class CApplication {
     }
     
     /**
-     * The method returns a reference to a predicate, which allows to select
+     * The method returns a reference to a query, which allows to select
      * products that weren't produced in Y year
      * @return
      */
-    private static Predicate<CSpecification> _getProductsWerentProducedInYear(int year) {
-	return new Predicate<CSpecification>() {
-            public boolean match(CSpecification entity) {
-        	Calendar calendar = Calendar.getInstance();
-        	calendar.setTime(entity.GetYearOfProduction());
-        	
-        	int productionYear = calendar.get(Calendar.YEAR);
-
-        	return productionYear != year;
-            }
-        };
+    private static Query _getProductsWerentProducedInYear(
+	    CSpecificationRepository repository, int year) {
+        Query query = repository.CreateQuery();
+        
+        query.constrain(CSpecification.class);
+        query.constrain(new CSpecificProductionYearEvaluation(2017, true));
+        
+        return query;
     }
     
     /**

@@ -237,6 +237,24 @@ public final class CApplication {
              * <===============================================================
              */
             
+            /*
+             * Display a product that the most uses the specified material
+             * (Определить изделие, которое больше всего использует указанный материал)
+             * >===============================================================
+             */
+            
+            System.out.print("The product that the most uses the specified material: ");
+            
+            System.out.println(_getProductWhichMostUsesMaterial(
+        	    materialsRepository, specificationsRepository, 
+		    "Alluminium"));
+            
+            /*
+             * Display a product that the most uses the specified material
+             * (Определить изделие, которое больше всего использует указанный материал)
+             * <===============================================================
+             */
+            
             System.out.println("The program has finished its work");
         }
         finally {
@@ -663,5 +681,48 @@ public final class CApplication {
         avgConsumption /= 12.0;
 	
 	return avgConsumption;
+    }
+    
+    /**
+     * The query returns a specification, which most uses the specified material
+     * @param materials Materials' repository
+     * @param specifications Specifications' repository
+     * @param materialName A material's name
+     * @return The method returns a specification, which most uses the specified material
+     */
+    private static ISpecification _getProductWhichMostUsesMaterial(CMaterialRepository materials,
+	    CSpecificationRepository specifications, String materialName) {
+	ObjectSet<CMaterial> foundMaterials = materials.FindByName(materialName);
+	
+	if (foundMaterials.size() < 1) {
+	    return null;
+	}
+	
+	IMaterial specifiedMaterial = foundMaterials.get(0);
+	
+	Query specsQuery = specifications.CreateQuery();
+
+	// select specifications
+	specsQuery.constrain(CSpecification.class);
+	// select specifications, which uses material (materialName)
+	specsQuery.constrain(new CSpecificMaterialEvaluation(specifiedMaterial));
+
+	// execute the query
+	ObjectSet<CSpecification> specs = specifications.Find(specsQuery);
+	
+	// find a specification, which most uses the material
+	ISpecification result = null;
+	
+	float maxUsageValue = -1.0f;
+	float currUsageValue = 0.0f;
+	
+	for (CSpecification entity : specs) {
+	    if (maxUsageValue < (currUsageValue = entity.GetMaterialAmount(specifiedMaterial))) {
+		maxUsageValue = currUsageValue;
+		result = entity;
+	    }
+        }
+	
+	return result;
     }
 }

@@ -66,16 +66,24 @@
       <Entity type="Enum">
         <Name>E_MATERIAL_TYPE</Name>
         <Access>Public</Access>
-        <Location left="1192" top="11" />
+        <Location left="1191" top="11" />
         <Size width="162" height="216" />
         <Collapsed>False</Collapsed>
-        <Value>MT_MATERIAL1</Value>
+        <Value>MT_MAPLE</Value>
+        <Value>MT_EBONY</Value>
+        <Value>MT_MAHOGANY</Value>
+        <Value>MT_ROSEWOOD</Value>
+        <Value>MT_COPPER</Value>
+        <Value>MT_ALUMINIUM</Value>
+        <Value>MT_STEEL</Value>
+        <Value>MT_IVORY</Value>
+        <Value>MT_PEARL</Value>
       </Entity>
       <Entity type="Class">
         <Name>CSpecification</Name>
         <Access>Public</Access>
-        <Location left="27" top="677" />
-        <Size width="944" height="468" />
+        <Location left="27" top="692" />
+        <Size width="944" height="536" />
         <Collapsed>False</Collapsed>
         <Member type="Field">private CProduct mProduct</Member>
         <Member type="Field">private CCompany mManufacturer</Member>
@@ -100,6 +108,10 @@
         <Member type="Method">public Date GetYearOfProduction()</Member>
         <Member type="Method">public Date GetCancellationDate()</Member>
         <Member type="Method">public float GetProductionAmount()</Member>
+        <Member type="Method">public float GetProductionCost()</Member>
+        <Member type="Method">public IMaterial[] GetMaterials()</Member>
+        <Member type="Method">public int GetMaterialsCount()</Member>
+        <Member type="Method">public float GetMaterialAmount(IMaterial material)</Member>
         <Modifier>None</Modifier>
       </Entity>
       <Entity type="Interface">
@@ -127,25 +139,21 @@
     </Entities>
     <Relationships>
       <Relationship type="Association" first="2" second="3">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="False">
-          <X>1034</X>
+          <X>1033</X>
           <Y>86</Y>
         </BendPoint>
         <Direction>Unidirectional</Direction>
         <AssociationType>Composition</AssociationType>
       </Relationship>
       <Relationship type="Association" first="4" second="0">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>103</X>
-          <Y>648</Y>
+          <Y>663</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
           <X>103</X>
@@ -155,13 +163,11 @@
         <AssociationType>Aggregation</AssociationType>
       </Relationship>
       <Relationship type="Association" first="4" second="1">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>126</X>
-          <Y>647</Y>
+          <Y>662</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
           <X>709</X>
@@ -171,13 +177,11 @@
         <AssociationType>Aggregation</AssociationType>
       </Relationship>
       <Relationship type="Association" first="4" second="2">
-        <Label>
-        </Label>
         <StartOrientation>Vertical</StartOrientation>
         <EndOrientation>Vertical</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>147</X>
-          <Y>650</Y>
+          <Y>665</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
           <X>1137</X>
@@ -207,7 +211,7 @@
         <EndOrientation>Horizontal</EndOrientation>
         <BendPoint relativeToStartShape="True">
           <X>526</X>
-          <Y>607</Y>
+          <Y>622</Y>
         </BendPoint>
         <BendPoint relativeToStartShape="False">
           <X>546</X>

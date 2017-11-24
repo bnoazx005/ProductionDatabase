@@ -4,6 +4,7 @@
  */
 package production_database;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -255,6 +256,25 @@ public final class CApplication {
              * <===============================================================
              */
             
+            /*
+             * Display a list of products for which the cost of materials in Y
+             * year decreased compared to the previous year
+             * (Вывести список изделий, для которых затраты на материалы в Y году
+             *  снизились по сравнению с предыдущим годом)
+             * >===============================================================
+             */
+                        
+            _printResults("The specifications with reduced costs: ",
+        	    _getSpecificationsWithReducedCost(specificationsRepository, 2017));
+            
+            /*
+             * Display a list of products for which the cost of materials in Y
+             * year decreased compared to the previous year
+             * (Вывести список изделий, для которых затраты на материалы в Y году
+             *  снизились по сравнению с предыдущим годом)
+             * <===============================================================
+             */
+            
             System.out.println("The program has finished its work");
         }
         finally {
@@ -268,7 +288,21 @@ public final class CApplication {
         }
     }
     
+    private static <T> void _printData(T[] data) {
+        for (T entity : data) {
+            System.out.println(entity);
+        }
+    }
+    
     private static <T> void _printResults(String header, ObjectSet<T> data) {
+	System.out.println(header);
+	
+	_printData(data);
+	
+	System.out.println();
+    }
+    
+    private static <T> void _printResults(String header, T[] data) {
 	System.out.println(header);
 	
 	_printData(data);
@@ -397,13 +431,26 @@ public final class CApplication {
         cancellationDate = calendar.getTime();
 
         CSpecification woodstockSinglePickup = 
-        	new CSpecification("WoodstockSinglePickup", products[6],
+        	new CSpecification("WoodstockSinglePickup2017", products[6],
         		           companies[0], approvalDate,
         		           cancellationDate, productionYear, 135, 2700);
 
         woodstockSinglePickup.AddMaterial(materials[3], 6.0f); //magnets
         woodstockSinglePickup.AddMaterial(materials[1], 0.15f);  //copper wire
         woodstockSinglePickup.AddMaterial(materials[6], 1.0f);  //plastic coil
+        
+        calendar.set(2016, 0, 1);
+
+        productionYear = calendar.getTime();
+
+        CSpecification woodstockSinglePickupPrevYear = 
+        	new CSpecification("WoodstockSinglePickup2016", products[6],
+        		           companies[0], approvalDate,
+        		           cancellationDate, productionYear, 135, 2700);
+
+        woodstockSinglePickupPrevYear.AddMaterial(materials[3], 6.0f); //magnets
+        woodstockSinglePickupPrevYear.AddMaterial(materials[1], 0.3f);  //copper wire
+        woodstockSinglePickupPrevYear.AddMaterial(materials[6], 1.0f);  //plastic coil
         
         calendar.set(2014, 0, 1);
         
@@ -412,6 +459,10 @@ public final class CApplication {
         calendar.set(2025, 0, 1);
         
         cancellationDate = calendar.getTime();
+        
+        calendar.set(2017, 0, 1);
+
+        productionYear = calendar.getTime();
         
         CSpecification sModelLepskyGuitar = 
         	new CSpecification("Lepsky S Model guitar", products[7],
@@ -443,7 +494,8 @@ public final class CApplication {
         
         /*returns three specifications within the array*/
         return new CSpecification[] {
-                hotBreezeHumbPickup, woodstockSinglePickup, sModelLepskyGuitar, gravityCustomGuitar
+                hotBreezeHumbPickup, woodstockSinglePickup, woodstockSinglePickupPrevYear,
+                sModelLepskyGuitar, gravityCustomGuitar
         };
     }
     
@@ -724,5 +776,52 @@ public final class CApplication {
         }
 	
 	return result;
+    }
+    
+    /**
+     * The query returns specifications, which reduced their production cost in Y year
+     * @param specifications A specifications' repository
+     * @param year A year of production
+     * @return Returns specifications, which reduced their production cost in Y year
+     */
+    private static ISpecification[] _getSpecificationsWithReducedCost(
+	    CSpecificationRepository specifications, int year) {	
+	Query currYearSpecsQuery = specifications.CreateQuery();
+	Query prevYearSpecsQuery = specifications.CreateQuery();
+
+	// select specifications
+	currYearSpecsQuery.constrain(CSpecification.class);
+	// only ones that were produced in (year) year
+	currYearSpecsQuery.constrain(new CSpecificProductionYearEvaluation(year, false));
+
+	// select specifications
+	prevYearSpecsQuery.constrain(CSpecification.class);
+	// only ones that were produced in (year) year
+	prevYearSpecsQuery.constrain(new CSpecificProductionYearEvaluation(year - 1, false));
+	
+	// execute the first query
+	ObjectSet<CSpecification> currYearSpecs = specifications.Find(currYearSpecsQuery);
+	// execute the second query
+	ObjectSet<CSpecification> prevYearSpecs = specifications.Find(prevYearSpecsQuery);
+		
+	ArrayList<ISpecification> resultArray = new ArrayList<ISpecification>();
+	
+	for (CSpecification currYearEntity : currYearSpecs) {
+	    for (CSpecification prevYearEntity : prevYearSpecs) {
+		//check up a manufacturer and a product
+		if ((currYearEntity.GetManufacturer() != prevYearEntity.GetManufacturer()) ||
+			(currYearEntity.GetProduct() != prevYearEntity.GetProduct()) ||
+			(currYearEntity.GetProductionCost() > prevYearEntity.GetProductionCost())) {
+		    continue;
+		}
+
+		//found previous year specification for current
+		resultArray.add(currYearEntity);
+		
+		break;
+	    }
+	}
+
+	return resultArray.toArray(new ISpecification[0]);
     }
 }

@@ -141,4 +141,11 @@ public interface ISpecification extends IBaseDBEntity {
      * @return An array of used materials
      */
     IMaterial[] GetMaterials();
+    
+    /**
+     * The method returns an production cost's value,
+     * which is a summary of used materials costs
+     * @return Returns an production cost's value   
+     */
+    float GetProductionCost();
 }

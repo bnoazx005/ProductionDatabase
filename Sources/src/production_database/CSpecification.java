@@ -387,6 +387,22 @@ public final class CSpecification
 	return mUsedMaterials.keySet().toArray(new IMaterial[0]);
     }
     
+    /**
+     * The method returns an production cost's value,
+     * which is a summary of used materials costs
+     * @return Returns an production cost's value   
+     */
+    public float GetProductionCost() {
+	float productionCost = 0.0f;
+	
+        for (Map.Entry<IMaterial, Float> entry : mUsedMaterials.entrySet())
+        {
+            productionCost += entry.getValue();
+        }
+        
+        return productionCost;
+    }
+    
     @Override
     public String toString() {
         String resultString = "[";

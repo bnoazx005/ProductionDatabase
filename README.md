@@ -6,7 +6,12 @@
 
 **Project's directories structure:**
 
+- __./Sources/__ - the folder contains source code of the project and db4o library.
 - __./UML/__ - the folder contains UML diagram that was created in NClass diagram editor (http://nclass.sourceforge.net/). There is also a diagram in *.png format.
+
+**UML diagram**
+
+![UML diagram](UML/ProductionUML.png)
 
 **The database's description**
 
